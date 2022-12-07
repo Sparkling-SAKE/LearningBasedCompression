@@ -1,10 +1,10 @@
-2022-2 캡스톤디자인1
-KHUVCM
-- Color Space Convertion Neural Compression
+# 2022-2 캡스톤디자인1
+## KHUVCM
+### - Color Space Convertion Neural Compression
 
 Dataset
-  Train : vimeo
-  Test  : Kodak24
+  - Train : vimeo
+  - Test  : Kodak24
 
 원본과 압축 이미지 비교(Kodak24)
 ![image](https://user-images.githubusercontent.com/80191452/206113370-f7dc885a-6d7d-4eb2-9e53-d58ee55b934f.png)
