@@ -6,22 +6,22 @@
   - Train : vimeo
   - Test  : Kodak24
   
-# Inatall compressai -> pip install compressai
+### Inatall compressai -> pip install compressai
 
-# Directory
+### Directory
     ./save -> checkpoint (.pth) file saved
     ./log  -> tensorboard log files saved
     ./data -> you can change
 
-# Dataset Preparation
+### Dataset Preparation
     Vimeo90k (82GB) for training (http://data.csail.mit.edu/tofu/dataset/vimeo_septuplet.zip)
     Kodak24
     For downloading Vimeo90K dataset, recommend using 'Axel' for parallel precessing
 
-# train_mean_scale_hyperprior.py -> trainig
-# test_mean_scale_hyperprior.py -> test
-# custom_model.py -> You can customizing Mean-Scale Hyperprior from compressai project
-# load_model.py -> customed load_model function from compressai project (for custom model)
+### train_mean_scale_hyperprior.py -> trainig
+### test_mean_scale_hyperprior.py -> test
+### custom_model.py -> You can customizing Mean-Scale Hyperprior from compressai project
+### load_model.py -> customed load_model function from compressai project (for custom model)
 
 1. train
     1) CUDA_VISIBLE_DEVICES={your_gpu_number} python train.py --quality {1-8}
