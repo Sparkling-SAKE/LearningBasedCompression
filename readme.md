@@ -2,10 +2,6 @@
 ## KHUVCM
 ### - Color Space Convertion Neural Compression
 
-# Dataset
-  - Train : vimeo
-  - Test  : Kodak24
-  
 ### Inatall compressai -> pip install compressai
 
 ### Directory
