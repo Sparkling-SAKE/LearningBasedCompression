@@ -71,7 +71,7 @@
 9.  There can be some errors.
     if any problem occurs, please contact me
     
-#제안된 모델
+# 제안된 모델
 ![image](https://user-images.githubusercontent.com/80191452/206115230-c792ab9e-f9d9-434d-93f5-48ec472941c3.png)
 
 
@@ -82,6 +82,7 @@
 
 
 # PSNR 성능 비교
-- (6PSNR_Y + 1PSNR_Cb + 1PSNR_Cr) / 6
+## - (6PSNR_Y + 1PSNR_Cb + 1PSNR_Cr) / 6
 ![image](https://user-images.githubusercontent.com/80191452/206115326-9cb171e1-0f3e-453a-a408-4fefb3154f9b.png)
+## RD 커브
 ![image](https://user-images.githubusercontent.com/80191452/206114441-655e41c1-fcdb-4b2d-84d6-7692f8a75e46.png)
