@@ -1,6 +1,7 @@
 from compressai.zoo.pretrained import load_pretrained
 from compressai.zoo.image import cfgs, model_urls
-from custom_model import CustomMeanScaleHyperprior
+#from custom_model import CustomMeanScaleHyperprior
+from custom_model_yuv import CustomMeanScaleHyperprior
 from compressai.models import (
     Cheng2020Anchor,
     Cheng2020Attention,
@@ -39,6 +40,7 @@ def load_model(
         url = model_urls[architecture][metric][quality]
         state_dict = load_state_dict_from_url(url, progress=progress)
         state_dict = load_pretrained(state_dict)
+
         model = model_architectures[architecture].from_state_dict(state_dict)
         return model
 

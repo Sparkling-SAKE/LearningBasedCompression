@@ -263,7 +263,12 @@ def test(global_step, test_dataloader, model, criterion, logger, lr):
     with torch.no_grad():
         for i_, d in enumerate(test_dataloader):
             d = d.to(device)
-            out_net = model(d)
+
+            luma = d[0,0,:,:].unsqueeze(dim=0).unsqueeze(dim=0)
+            chroma = d[0,1:,:,:].unsqueeze(dim=0)
+
+            out_net = model(luma, chroma)
+            # out_net = model(d)
             out_criterion = criterion(out_net, d)
 
             aux_loss.update(model.aux_loss())
@@ -303,7 +308,11 @@ def train(
             optimizer.zero_grad()
             aux_optimizer.zero_grad()
 
-            out_net = model(x)
+            luma = x[:,0,:,:].unsqueeze(dim=1)
+            chroma = x[:,1:,:,:]
+
+            out_net = model(luma, chroma)
+            # out_net = model(x)
 
             out_criterion = criterion(out_net, x)
 
@@ -427,7 +436,10 @@ def main(argv):
     train_dataloader, test_dataloader = build_dataset(args)
     logger = SummaryWriter(args.log_dir)
     device = "cuda" if args.cuda and torch.cuda.is_available() else "cpu"
+    print('Device : ', device)
+    print('args : ', args)
     print('Model load')
+    #net = load_model(args.model, metric="mse", quality=args.quality, pretrained=True)
     net = load_model(args.model, metric="mse", quality=args.quality, pretrained=False)
     net = net.to(device)
     global_step = 0

@@ -22,8 +22,16 @@ class ImageFolderVimeo(Dataset):
         if not split_dir.is_dir():
             raise RuntimeError(f'Invalid directory "{root}"')
 
+    # def __getitem__(self, index):
+    #     img = Image.open(self.samples[index]).convert("RGB")
+
+    #     if self.transform:
+    #         return self.transform(img)
+    #     return img
+
     def __getitem__(self, index):
-        img = Image.open(self.samples[index]).convert("RGB")
+        img = Image.open(self.samples[index]).convert("YCbCr")
+
         if self.transform:
             return self.transform(img)
         return img
@@ -43,8 +51,15 @@ class Kodak24Dataset(Dataset):
         self.transform = transform
         self.mode = split
 
+    # def __getitem__(self, index):
+    #     img = Image.open(self.samples[index]).convert("RGB")
+    #     if self.transform:
+    #         return self.transform(img)
+    #     return img
+
     def __getitem__(self, index):
-        img = Image.open(self.samples[index]).convert("RGB")
+        img = Image.open(self.samples[index]).convert("YCbCr")
+
         if self.transform:
             return self.transform(img)
         return img

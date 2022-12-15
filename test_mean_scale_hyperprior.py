@@ -38,6 +38,8 @@ from torchvision import transforms
 from compressai.zoo import image_models
 from dataset import Kodak24Dataset
 from load_model import load_model
+from PIL import Image
+from torchvision.transforms import ToTensor, ToPILImage
 
 
 def parse_args(argv):
@@ -146,18 +148,32 @@ def comrpess_and_decompress(model, test_dataloader, device):
     psnr = AverageMeter()
     bpp = AverageMeter()
 
+    num = 1
     with torch.no_grad():
         for i_, x in enumerate(test_dataloader):
             x = x.to(device)
 
+            print("x : ", x.shape)
+
+            luma = x[0,0,:,:].unsqueeze(dim=0).unsqueeze(dim=0)
+            chroma = x[0,1:,:,:].unsqueeze(dim=0)
+
             # compress
-            compressed = model.compress(x)  # {"strings": [y_strings, z_strings], "shape": z.size()[-2:]}
+            #compressed = model.compress(x)  # {"strings": [y_strings, z_strings], "shape": z.size()[-2:]}
+            compressed = model.compress(luma, chroma)  # {"strings": [y_strings, z_strings], "shape": z.size()[-2:]}
             strings = compressed['strings']
             shape = compressed['shape']
 
             # decompress
             decompressed = model.decompress(strings, shape)
             x_hat = decompressed['x_hat'].clamp_(0, 1)
+
+
+            tf_toPILImage = ToPILImage() 
+            img_PIL_from_Tensor = tf_toPILImage(x_hat.squeeze(dim=0))
+            img_PIL_from_Tensor.save('./saveyuv1/output' + str(num) + '.png', 'png')
+            num += 1
+
 
             bpp_y = (len(strings[0][0])) * 8 / (x.shape[2] * x.shape[3])
             bpp_z = (len(strings[1][0])) * 8 / (x.shape[2] * x.shape[3])
@@ -183,7 +199,7 @@ def main(argv):
         random.seed(args.seed)
 
     device = "cuda"
-    model = load_model(args.model, metric="mse", quality=args.quality, pretrained=True).to(device).eval()
+    model = load_model(architecture = args.model, metric="mse", quality=args.quality, pretrained=False).to(device).eval()
 
 
     if args.checkpoint:  # load from previous checkpoint
